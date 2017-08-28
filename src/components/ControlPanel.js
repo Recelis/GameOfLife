@@ -7,7 +7,6 @@ class ControlPanel extends Component{
         return(
             <div>
                 <Buttons/>
-                <DragAndDrop/>
             </div>
         )
     }

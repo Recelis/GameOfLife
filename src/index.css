@@ -3,3 +3,41 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.game{
+  text-align:center;
+  margin:0 auto;
+}
+
+.emptyCell{
+  background-color:white;
+  width:8px;
+  height:8px;
+  display:inline-block;
+  padding:0px;
+  margin:0px;
+  border:solid 1px grey;
+}
+
+.liveCell{
+  background-color:darkslategrey;
+  width:8px;
+  height:8px;
+  display:inline-block;
+  padding:0px;
+  margin:0px;
+  border:solid 1px grey;
+}
+
+.grid{
+  margin:0px;
+  padding:0px;
+  line-height:0px;
+}
+
+.gridSizes{
+  width:2400px;
+  height:800px;
+  text-align:center;
+  margin:0 auto;
+}
