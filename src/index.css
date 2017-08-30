@@ -29,6 +29,15 @@ body {
   border:solid 1px grey;
 }
 
+.cellButton{
+  background-color:transparent;
+  width:8px;
+  height:8px;
+  padding:0px;
+  margin:0px;
+  border:transparent;
+}
+
 .grid{
   margin:0px;
   padding:0px;

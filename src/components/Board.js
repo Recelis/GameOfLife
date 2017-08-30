@@ -3,11 +3,25 @@ import React, { Component } from 'react';
 class Board extends Component{
     constructor(){
         super();
-        const columns = Array(120).fill(0);
+        let board =[];
+        for (var row =0; row < 80; row++){
+            let arr = [];
+            for (var column =0; column < 120; column++){
+                arr.push(Math.round(Math.random()));
+            } board.push(arr);
+        }
         this.state= {
-            grid: Array(80).fill(columns),
+            grid: board,
         }; 
     }
+
+    clickedCell(ii,jj){
+        const newgrid = JSON.parse(JSON.stringify(this.state.grid));
+        newgrid[ii][jj] = newgrid[ii][jj]?0:1;
+        this.setState({
+            grid:newgrid,
+        })
+    }    
     renderingGrid(){
         const newgrid = JSON.parse(JSON.stringify(this.state.grid));
         let id = 0;
@@ -15,7 +29,7 @@ class Board extends Component{
         for (var ii =0; ii < this.state.grid.length; ii++){
             const rows = [];
             for (var jj =0; jj<this.state.grid[ii].length; jj++){
-                rows.push(<Cell key = {id} color = {newgrid[ii][jj]}/>)
+                rows.push(<Cell key = {id} row = {ii} column = {jj} color = {newgrid[ii][jj]} clickedCell = {this.clickedCell.bind(this,ii,jj)}/>)
                 id++;
             } grid.push(<div className="grid" key = {ii}>{rows}</div>);
         }
@@ -32,9 +46,9 @@ class Board extends Component{
 
 function Cell (props){
     if (props.color === 0){
-        return <span className = "emptyCell"></span> 
+        return <span className = "emptyCell"><button className="cellButton" onClick = {()=>props.clickedCell(props.row, props.column)}></button></span> 
     }
-    return <span className = "liveCell"></span>     
+    return <span className = "liveCell"><button className="cellButton" onClick = {()=>props.clickedCell()}></button></span>     
 }
 
 export default Board;
