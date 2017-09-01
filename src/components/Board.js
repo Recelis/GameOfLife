@@ -20,6 +20,7 @@ class Board extends Component {
             grid: cleanGrid,
             intervalID: intervalID,
             isRunning: true,
+            generation:0,
         };
     }
 
@@ -56,8 +57,11 @@ class Board extends Component {
                 }
             }
         }
+        let newGen = this.state.generation;
+        newGen++;
         this.setState({
             grid: newgrid,
+            generation:newGen,
         })
     }
     renderingGrid() {
@@ -92,6 +96,7 @@ class Board extends Component {
         this.setState({
             grid:cleanGrid,
             isRunning:false,
+            generation:0,
         })
     }
     pauseButton() {
@@ -109,6 +114,7 @@ class Board extends Component {
                     clearButton={() => this.clearButton()}
                     simSpeedButton={() => this.simSpeedButton()}
                 />
+                <p>{this.state.generation}</p>
                 <div className="gridSizes">
                     {this.renderingGrid()}
                 </div>
