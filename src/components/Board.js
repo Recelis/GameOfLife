@@ -14,8 +14,8 @@ class Board extends Component {
         let intervalID = setInterval(() => this.triggerNextGen(), 1000);
         this.state = {
             grid: board,
-            intervalID:intervalID,
-            isRunning:true,
+            intervalID: intervalID,
+            isRunning: true,
         };
     }
 
@@ -41,11 +41,11 @@ class Board extends Component {
                         if (newgrid[neighX][neighY] === 1) liveNeigh++;
                     }
                 }
-                if (newgrid[row][column] === 1){
+                if (newgrid[row][column] === 1) {
                     if (liveNeigh < 2) newgrid[row][column] = 0;
                     else if (liveNeigh === 2 || liveNeigh === 3) continue;
-                    else newgrid[row][column] = 0; 
-                } else{
+                    else newgrid[row][column] = 0;
+                } else {
                     if (liveNeigh === 3) newgrid[row][column] = 1;
                 }
             }
@@ -67,28 +67,40 @@ class Board extends Component {
         }
         return grid;
     }
-    runButton(){
-        alert("runbutton pressed!");
-        // if (this.state.isRunning === true) return;
-        // else {
-        //     let intervalID = setInterval(() => this.triggerNextGen(), 1000);
-        //     this.setState({
-        //         intervalID:intervalID,
-        //         isRunning:true
-        //     })
-        // }
+    runButton() {
+        if (this.state.isRunning === true) return;
+        else {
+            let intervalID = setInterval(() => this.triggerNextGen(), 1000);
+            this.setState({
+                intervalID:intervalID,
+                isRunning:true
+            })
+        }
     }
-    pauseButton(){
-
+    clearButton(){
+        let cleanGrid = Array(80).fill(0);
+        alert(cleanGrid);
+        for (let ii =0; ii < 80; ii++){
+            cleanGrid[ii]=Array(80).fill(0);
+        }
+        this.setState({
+            grid:cleanGrid,
+        })
+    }
+    pauseButton() {
+        clearInterval(this.state.intervalID)
+        this.setState({
+            isRunning:false
+        })
     }
     render() {
         return (
-            <div className = "game">
+            <div className="game">
                 <Buttons
-                runButton = {()=>this.runButton()}
-                pauseButton = {()=>this.pauseButton()}
-                clearButton = {()=>this.clearButton()}
-                simSpeedButton = {()=>this.simSpeedButton()}
+                    runButton={() => this.runButton()}
+                    pauseButton={() => this.pauseButton()}
+                    clearButton={() => this.clearButton()}
+                    simSpeedButton={() => this.simSpeedButton()}
                 />
                 <div className="gridSizes">
                     {this.renderingGrid()}
