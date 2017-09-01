@@ -5,15 +5,19 @@ class Board extends Component {
     constructor() {
         super();
         let board = [];
-        for (var row = 0; row < 80; row++) {
-            let arr = [];
-            for (var column = 0; column < 80; column++) {
-                arr.push(Math.round(Math.random()));
-            } board.push(arr);
+        // for (var row = 0; row < 80; row++) {
+        //     let arr = [];
+        //     for (var column = 0; column < 80; column++) {
+        //         arr.push(Math.round(Math.random()));
+        //     } board.push(arr);
+        // }
+        let cleanGrid = Array(80).fill(0);
+        for (let ii =0; ii < 80; ii++){
+            cleanGrid[ii]=Array(80).fill(0);
         }
         let intervalID = setInterval(() => this.triggerNextGen(), 1000);
         this.state = {
-            grid: board,
+            grid: cleanGrid,
             intervalID: intervalID,
             isRunning: true,
         };
@@ -27,6 +31,7 @@ class Board extends Component {
         })
     }
     triggerNextGen() {
+        const readgrid = JSON.parse(JSON.stringify(this.state.grid));
         const newgrid = JSON.parse(JSON.stringify(this.state.grid));
         // loop over entire board, pass rules 
         for (var row = 0; row < newgrid.length; row++) {
@@ -38,10 +43,11 @@ class Board extends Component {
                     if (neighX < 0 || neighX >= 80) continue;
                     for (var neighY = column - 1; neighY < column + 2; neighY++) {
                         if (neighY < 0 || neighY >= 80) continue;
-                        if (newgrid[neighX][neighY] === 1) liveNeigh++;
+                        if (neighX === row && neighY === column) continue; // skip current cell
+                        if (readgrid[neighX][neighY] === 1) liveNeigh++;
                     }
                 }
-                if (newgrid[row][column] === 1) {
+                if (readgrid[row][column] === 1) {
                     if (liveNeigh < 2) newgrid[row][column] = 0;
                     else if (liveNeigh === 2 || liveNeigh === 3) continue;
                     else newgrid[row][column] = 0;
@@ -79,12 +85,13 @@ class Board extends Component {
     }
     clearButton(){
         let cleanGrid = Array(80).fill(0);
-        alert(cleanGrid);
         for (let ii =0; ii < 80; ii++){
             cleanGrid[ii]=Array(80).fill(0);
         }
+        clearInterval(this.state.intervalID)
         this.setState({
             grid:cleanGrid,
+            isRunning:false,
         })
     }
     pauseButton() {
