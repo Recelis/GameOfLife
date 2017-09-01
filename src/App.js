@@ -8,6 +8,7 @@ class App extends Component {
       <div className="App">
         <h1>Game of Life</h1>
         <Board/>
+        <p className= "copyRight">Created by Jacky Lui &#169; 2017</p>
       </div>
     );
   }

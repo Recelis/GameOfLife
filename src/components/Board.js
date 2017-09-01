@@ -5,22 +5,19 @@ class Board extends Component {
     constructor() {
         super();
         let board = [];
-        // for (var row = 0; row < 86; row++) {
-        //     let arr = [];
-        //     for (var column = 0; column < 86; column++) {
-        //         arr.push(Math.round(Math.random()));
-        //     } board.push(arr);
-        // }
-        let cleanGrid = Array(86).fill(0);
-        for (let ii =0; ii < 86; ii++){
-            cleanGrid[ii]=Array(86).fill(0);
+        for (var row = 0; row < 86; row++) {
+            let arr = [];
+            for (var column = 0; column < 86; column++) {
+                arr.push(Math.round(Math.random()));
+            } board.push(arr);
         }
         let intervalID = setInterval(() => this.triggerNextGen(), 1000);
         this.state = {
-            grid: cleanGrid,
+            grid: board,
             intervalID: intervalID,
             isRunning: true,
             generation:0,
+            intervalLength: 1000,
         };
     }
 
@@ -80,7 +77,7 @@ class Board extends Component {
     runButton() {
         if (this.state.isRunning === true) return;
         else {
-            let intervalID = setInterval(() => this.triggerNextGen(), 1000);
+            let intervalID = setInterval(() => this.triggerNextGen(), this.state.intervalLength);
             this.setState({
                 intervalID:intervalID,
                 isRunning:true
@@ -105,6 +102,31 @@ class Board extends Component {
             isRunning:false
         })
     }
+
+    simFaster(){ // not sure if intervalLength needs to be a state variable
+        clearInterval(this.state.intervalID);
+        clearInterval(this.state.intervalID);
+        let decreaseInterval = this.state.intervalLength;
+        decreaseInterval-=100;
+        if (decreaseInterval <= 100) decreaseInterval = 100;
+        let intervalID = setInterval(() => this.triggerNextGen(), decreaseInterval);
+        this.setState({
+            intervalID:intervalID,
+            isRunning:true,
+            intervalLength:decreaseInterval,
+        })
+    }
+    simSlower(){
+        clearInterval(this.state.intervalID);
+        let increaseInterval = this.state.intervalLength;
+        increaseInterval+=100;
+        let intervalID = setInterval(() => this.triggerNextGen(), increaseInterval);
+        this.setState({
+            intervalID:intervalID,
+            isRunning:true,
+            intervalLength:increaseInterval,
+        })
+    }
     render() {
         return (
             <div className="game">
@@ -112,9 +134,10 @@ class Board extends Component {
                     runButton={() => this.runButton()}
                     pauseButton={() => this.pauseButton()}
                     clearButton={() => this.clearButton()}
-                    simSpeedButton={() => this.simSpeedButton()}
+                    simFaster={() => this.simFaster()}
+                    simSlower={() => this.simSlower()}
                 />
-                <p>{this.state.generation}</p>
+                <p>{"Generation: " + this.state.generation}</p>
                 <div className="gridSizes">
                     {this.renderingGrid()}
                 </div>

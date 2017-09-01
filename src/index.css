@@ -4,6 +4,11 @@ body {
   font-family: sans-serif;
 }
 
+.App{
+  text-align:center;
+  margin:0 auto;
+}
+
 .game{
   text-align:center;
   margin:0 auto;
@@ -45,8 +50,17 @@ body {
 }
 
 .gridSizes{
-  width:2400px;
-  height:800px;
-  text-align:center;
-  margin:0 auto;
+  width:640px;
+  height:640px;
+  margin: 0px auto;
+  display:block;
+  padding-top: 30px;
+}
+
+.copyRight{
+  text-align: center;
+  margin-top:10%; 
+  font-family: 'Raleway', sans-serif;
+  color:darkgrey;
+  margin-bottom:0;
 }

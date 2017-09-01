@@ -7,10 +7,16 @@ class Buttons extends Component{
     render(){
         return(
             <div>
-                <button onClick = {()=>this.props.runButton()}>Run</button>
-                <button onClick = {()=>this.props.pauseButton()}>Pause</button>
-                <button onClick = {()=>this.props.clearButton()}>Clear</button>
-                <button onClick = {()=>this.props.simSpeedButton()}>Simulation Speed</button>
+                <button className="btn btn-primary" onClick = {()=>this.props.runButton()}>Run</button>
+                <button className="btn btn-primary" onClick = {()=>this.props.pauseButton()}>Pause</button>
+                <button className="btn btn-primary" onClick = {()=>this.props.clearButton()}>Clear</button>
+                <div className = "container">
+                    <div className = "rows">
+                        <div className = "col-xs-4"><button className="btn btn-primary" onClick = {()=>this.props.simSlower()}>-</button></div>
+                        <div className = "col-xs-4"><p>Sim Speed</p></div>
+                        <div className = "col-xs-4"><button className="btn btn-primary" onClick = {()=>this.props.simFaster()}>+</button></div>
+                    </div>                   
+                </div>
             </div>
         )
     }
