@@ -5,15 +5,15 @@ class Board extends Component {
     constructor() {
         super();
         let board = [];
-        // for (var row = 0; row < 80; row++) {
+        // for (var row = 0; row < 86; row++) {
         //     let arr = [];
-        //     for (var column = 0; column < 80; column++) {
+        //     for (var column = 0; column < 86; column++) {
         //         arr.push(Math.round(Math.random()));
         //     } board.push(arr);
         // }
-        let cleanGrid = Array(80).fill(0);
-        for (let ii =0; ii < 80; ii++){
-            cleanGrid[ii]=Array(80).fill(0);
+        let cleanGrid = Array(86).fill(0);
+        for (let ii =0; ii < 86; ii++){
+            cleanGrid[ii]=Array(86).fill(0);
         }
         let intervalID = setInterval(() => this.triggerNextGen(), 1000);
         this.state = {
@@ -41,9 +41,9 @@ class Board extends Component {
                 // loop 6 neighbours
                 let liveNeigh = 0;
                 for (var neighX = row - 1; neighX < row + 2; neighX++) {
-                    if (neighX < 0 || neighX >= 80) continue;
+                    if (neighX < 0 || neighX >= 86) continue;
                     for (var neighY = column - 1; neighY < column + 2; neighY++) {
-                        if (neighY < 0 || neighY >= 80) continue;
+                        if (neighY < 0 || neighY >= 86) continue;
                         if (neighX === row && neighY === column) continue; // skip current cell
                         if (readgrid[neighX][neighY] === 1) liveNeigh++;
                     }
@@ -68,9 +68,9 @@ class Board extends Component {
         let newgrid = JSON.parse(JSON.stringify(this.state.grid));
         let id = 0;
         const grid = [];
-        for (var ii = 0; ii < newgrid.length; ii++) {
+        for (var ii = 3; ii < newgrid.length-3; ii++) {// to add an extra off screen values so that pattern works completely on screen
             const rows = [];
-            for (var jj = 0; jj < newgrid[ii].length; jj++) {
+            for (var jj = 3; jj < newgrid[ii].length-3; jj++) {
                 rows.push(<Cell key={id} row={ii} column={jj} color={newgrid[ii][jj]} clickedCell={this.clickedCell.bind(this, ii, jj)} />)
                 id++;
             } grid.push(<div className="grid" key={ii}>{rows}</div>);
@@ -88,9 +88,9 @@ class Board extends Component {
         }
     }
     clearButton(){
-        let cleanGrid = Array(80).fill(0);
-        for (let ii =0; ii < 80; ii++){
-            cleanGrid[ii]=Array(80).fill(0);
+        let cleanGrid = Array(86).fill(0);
+        for (let ii =0; ii < 86; ii++){
+            cleanGrid[ii]=Array(86).fill(0);
         }
         clearInterval(this.state.intervalID)
         this.setState({
