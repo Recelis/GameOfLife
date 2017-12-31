@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import Buttons from './Buttons';
 
+let BoardSize = {
+    Row:86,
+    Column:86
+}
+
 class Board extends Component {
     constructor() {
         super();
         let board = [];
-        for (var row = 0; row < 86; row++) {
+        for (var row = 0; row < BoardSize.Row; row++) {
             let arr = [];
-            for (var column = 0; column < 86; column++) {
+            for (var column = 0; column < BoardSize.Column; column++) {
                 arr.push(Math.round(Math.random()));
             } board.push(arr);
         }
